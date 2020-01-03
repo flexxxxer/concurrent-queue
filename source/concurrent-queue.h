@@ -56,8 +56,7 @@ public:
 						continue; // re-iterate dequeue
 					}
 
-					queue_node<T>* node_preview_node = first_node_preview.value_or(tag_queue_node<T>()).node;
-					std::optional<T> value = node_preview_node == nullptr ? std::optional<T>() : node_preview_node->value; // read value
+					std::optional<T> value = first_node_preview.value_or(tag_queue_node<T>()).node->value; // read value to return
 
 					if (this->head_.compare_exchange_weak(head, tag_queue_node<T>(first_node_preview.value_or(tag_queue_node<T>()).node, head.tag + 1)))
 						// try set head atomically, and if successful
